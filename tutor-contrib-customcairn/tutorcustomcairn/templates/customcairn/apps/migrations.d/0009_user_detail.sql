@@ -5,6 +5,7 @@ CREATE TABLE openedx_users_info
     `username` String,
     `email` String,
     `is_staff` UInt8,
+    `is_superuser` UInt8,
     `is_active` UInt8,
     `last_login` DateTime NULL,
     `date_joined` DateTime
@@ -25,10 +26,8 @@ CREATE TABLE _auth_user_profiles
 )
 ENGINE = MySQL('{{ MYSQL_HOST }}:{{ MYSQL_PORT }}', '{{ OPENEDX_MYSQL_DATABASE }}', 'auth_userprofile', '{{ OPENEDX_MYSQL_USERNAME }}', '{{ OPENEDX_MYSQL_PASSWORD }}');
 
-
 DROP TABLE IF EXISTS openedx_user_info_detail;
 set allow_experimental_live_view = 1;
-
 
 CREATE LIVE VIEW openedx_user_info_detail WITH PERIODIC REFRESH 30 AS
 SELECT
@@ -36,6 +35,7 @@ SELECT
     openedx_users_info.username AS username,
     openedx_users_info.email AS user_email,
     openedx_users_info.is_staff AS is_staff,
+    openedx_users_info.is_superuser AS is_superuser,
     openedx_users_info.is_active AS is_active,
     openedx_users_info.last_login as last_login,
     openedx_users_info.date_joined as date_joined,
