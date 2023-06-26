@@ -1,10 +1,10 @@
-DROP TABLE IF EXISTS openedx_users_info;
 CREATE TABLE openedx_users_info
 (
     `id` UInt64,
     `username` String,
     `email` String,
     `is_staff` UInt8,
+    `is_superuser` UInt8,
     `is_active` UInt8,
     `last_login` DateTime NULL,
     `date_joined` DateTime

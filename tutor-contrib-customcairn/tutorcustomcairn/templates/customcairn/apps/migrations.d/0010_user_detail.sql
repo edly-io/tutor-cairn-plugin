@@ -1,17 +1,3 @@
-DROP TABLE IF EXISTS openedx_users_info;
-CREATE TABLE openedx_users_info
-(
-    `id` UInt64,
-    `username` String,
-    `email` String,
-    `is_staff` UInt8,
-    `is_active` UInt8,
-    `last_login` DateTime NULL,
-    `date_joined` DateTime
-)
-ENGINE = MySQL('{{ MYSQL_HOST }}:{{ MYSQL_PORT }}', '{{ OPENEDX_MYSQL_DATABASE }}', 'auth_user', '{{ OPENEDX_MYSQL_USERNAME }}', '{{ OPENEDX_MYSQL_PASSWORD }}');
-
-DROP TABLE IF EXISTS _auth_user_profiles;
 CREATE TABLE _auth_user_profiles
 (
     `user_id` UInt64,
@@ -36,6 +22,7 @@ SELECT
     openedx_users_info.username AS username,
     openedx_users_info.email AS user_email,
     openedx_users_info.is_staff AS is_staff,
+    openedx_users_info.is_superuser AS is_superuser,
     openedx_users_info.is_active AS is_active,
     openedx_users_info.last_login as last_login,
     openedx_users_info.date_joined as date_joined,
