@@ -1,0 +1,2 @@
+recursive-include tutorcustomcairn/patches *
+recursive-include tutorcustomcairn/templates *
