@@ -1,3 +1,5 @@
+Drop TABLE IF EXISTS openedx_users_info;
+
 CREATE TABLE openedx_users_info
 (
     `id` UInt64,
@@ -11,6 +13,8 @@ CREATE TABLE openedx_users_info
 )
 ENGINE = MySQL('{{ MYSQL_HOST }}:{{ MYSQL_PORT }}', '{{ OPENEDX_MYSQL_DATABASE }}', 'auth_user', '{{ OPENEDX_MYSQL_USERNAME }}', '{{ OPENEDX_MYSQL_PASSWORD }}');
 
+
+DROP POLICY IF EXISTS common ON openedx_users_info;
 
 -- Grant everyone access
 CREATE ROW POLICY common ON openedx_users_info FOR SELECT USING 1 TO ALL;
