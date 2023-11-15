@@ -1,3 +1,6 @@
+Drop TABLE IF EXISTS _auth_user_profiles;
+DROP TABLE IF EXISTS openedx_user_info_detail;
+
 CREATE TABLE _auth_user_profiles
 (
     `user_id` UInt64,
@@ -12,7 +15,6 @@ CREATE TABLE _auth_user_profiles
 ENGINE = MySQL('{{ MYSQL_HOST }}:{{ MYSQL_PORT }}', '{{ OPENEDX_MYSQL_DATABASE }}', 'auth_userprofile', '{{ OPENEDX_MYSQL_USERNAME }}', '{{ OPENEDX_MYSQL_PASSWORD }}');
 
 
-DROP TABLE IF EXISTS openedx_user_info_detail;
 set allow_experimental_live_view = 1;
 
 
@@ -35,6 +37,9 @@ SELECT
     _auth_user_profiles.name AS user_fullname
 FROM openedx_users_info
 INNER JOIN _auth_user_profiles ON _auth_user_profiles.user_id=openedx_users_info.id;
+
+
+DROP POLICY IF EXISTS common ON openedx_user_info_detail;
 
 -- Grant everyone access to the view
 CREATE ROW POLICY common ON openedx_user_info_detail FOR SELECT USING 1 TO ALL;
